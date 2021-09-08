@@ -1,7 +1,8 @@
+import { I_ValueState } from "../../component/CustomForm";
 import {SUBMIT} from "../constants/submit";
 
 interface I_State {
-    submit : Array<unknown>
+    submit : Array<I_ValueState>
 };
 
 const submitState: I_State = {
@@ -10,7 +11,7 @@ const submitState: I_State = {
 
 interface I_SumitAction {
     type: SUBMIT.GET_SUBMIT,
-    payload: Array<unknown>
+    payload: Array<I_ValueState>
 };
 
 type Action = I_SumitAction

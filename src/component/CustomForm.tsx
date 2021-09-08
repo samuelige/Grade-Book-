@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import submitAction from '../redux/actions/submitAction';
 import { I_reducer } from '../redux/rootReducer';
 import Button from './Button';
 import InputField from './InputField';
 
-interface I_ValueState {
+export interface I_ValueState {
+    id: string;
     studentName: string,
     course: string,
     score: string
@@ -26,6 +28,7 @@ const CustomForm: React.FC = () => {
 
     const [valueState, setValueState] = useState<I_ValueState>(
         {
+            id: uuidv4(),
             studentName: '',
             course: '',
             score: ''
@@ -43,6 +46,7 @@ const CustomForm: React.FC = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>  {
         setValueState(
             { ...valueState, 
+                id: uuidv4(),
                 [e.currentTarget.name]: e.target.value 
             }
         );
@@ -59,9 +63,8 @@ const CustomForm: React.FC = () => {
             ]
         ));
 
-        console.log(valueState);
-
         setValueState({
+            id: '',
             studentName: '',
             course: '',
             score: ''
