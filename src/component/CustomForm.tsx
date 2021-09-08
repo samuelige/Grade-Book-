@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import submitAction from '../redux/actions/submitAction';
+import { I_reducer } from '../redux/rootReducer';
 import Button from './Button';
 import InputField from './InputField';
 
@@ -17,6 +20,10 @@ export interface I_InputData {
 };
 
 const CustomForm: React.FC = () => {
+    const dispatch = useDispatch();
+    const submit_content = useSelector((state: I_reducer) => state.submitData.submit);
+    console.log({...submit_content})
+
     const [valueState, setValueState] = useState<I_ValueState>(
         {
             studentName: '',
@@ -45,7 +52,20 @@ const CustomForm: React.FC = () => {
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault();
 
+        dispatch(submitAction(
+            [
+                {...valueState}, 
+            ...submit_content,
+            ]
+        ));
+
         console.log(valueState);
+
+        setValueState({
+            studentName: '',
+            course: '',
+            score: ''
+        });
     }
 
     
